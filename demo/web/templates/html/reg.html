@@ -1,0 +1,86 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>登录/注册</title>
+    <link rel="stylesheet" type="text/css" href="static/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/htmleaf-demo.css" />
+    <script src="static/js/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" href="static/css/register.css">
+</head>
+<script>
+    function register() {
+        var dateValue_post_from = $(".box").serialize();
+        $.ajax({
+            // 发送到的地址
+            url: "/api/auth/reg",
+            //请求方式
+            type: "post",
+            //指定请求的数据格式为json
+            data: dateValue_post_from,
+            // 数据
+            //指定响应的格式为json,注意如果后台没有放回json类型的数据格式下方的success不会执行
+            dataType: "json",
+            success: function (result) {
+                var mes = JSON.parse(JSON.stringify(result));
+                console.log(mes.message);
+                console.log(mes.url);
+                alert(mes.message);
+                window.location.replace(mes.url);
+            },
+            error: function (reg) {
+                var mes = reg.responseJSON;
+                console.log(mes.message);
+                alert(mes.message);
+                window.location.href="/reg";
+            }
+        });
+    }
+</script>
+<body>
+    <div class="htmleaf-container">
+        <!-- 头部固定样式 -->
+        <header class="htmleaf-header">
+            <h1>Web</h1>
+            <div class="htmleaf-links">
+                <a class="htmleaf-icon icon-htmleaf-home-outline" href="/" title="主页" target="_blank"><span>主页
+                    </span></a>
+                <a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="#" title="" target="_blank"><span>
+                        返回上页</span></a>
+            </div>
+        </header>
+        <!-- 表单开始 -->
+        <div id="wrapper" class="login-page">
+            <div id="login_form" class="form">
+                <form class="box">
+                    <input type="text" name="username"   placeholder="账号(不能中文)" onkeyup="value=value.replace(/[\u4e00-\u9fa5]/ig,'')"/>
+                    <!-- <input type="text" placeholder="用户名" id="r_user_name" /> -->
+                    <input type="password" autocomplete="new-password" placeholder="密码" name="password" />
+                    <input type="text" placeholder="QQ" name="qq" onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
+                           onafterpaste="this.value=this.value.replace(/[^\d]/g,'') "/>
+				    <input type="text" id="icode" name="icode" placeholder="邀请码">
+                    <div class="yzm-div">
+                        <input type="text" name="captcha" maxlength="4" placeholder="验证码" />
+                        <img src="api/auth/captcha" onclick="this.src='api/auth/captcha?v='+Math.random()">
+                    </div>
+
+                    <input id="create" type="button" onclick="register()" value="注册"></input>
+                    <p class="message">
+                        已经有了一个账户? <a href="login">立刻登录</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- 验证码随机 -->
+
+</body>
+
+
+</html>

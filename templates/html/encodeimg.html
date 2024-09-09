@@ -1,0 +1,41 @@
+{{template "usertop" .}}
+<script>
+    function Encodeimg() {
+        var formData = new FormData($("#formup")[0]);
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/api/file/encodeimg",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                var mes = JSON.parse(JSON.stringify(result));
+                alert(mes.message);
+                window.location.replace(mes.durl);
+            },
+            error: function (date) {
+                var mes = JSON.parse(JSON.stringify(date));
+                alert(mes.responseJSON.message);
+            }
+        });
+    }
+</script>
+<h3>图片隐写功能</h3>
+<form id="formup" enctype="multipart/form-data" method="POST" class="btn btn-outline-secondary">
+    <input type="file" name="f1" value="txt">
+    <p></p>
+    <hr>
+    <p></p>
+    <input type="file" name="f2" value="img">
+</form>
+
+<p>
+    <button type="button" onclick="Encodeimg()" style="width: 90px;height: 40px;" class="btn btn-info">
+        ok
+    </button>
+</p>
+<p>使用说明:第一个文件上传txt文本,第二个文件上传你需要隐写的图片(jpg)</p>
+<p></p>
+</p>
+{{template "userfooter" .}}

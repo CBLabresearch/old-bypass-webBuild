@@ -1,0 +1,61 @@
+{{template "top" .}}
+<script>
+    function Delfile(id) {
+        var d = {
+            "id": id
+        }
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(d),
+            url: "/api/admin/delfile",
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                var mes = JSON.parse(JSON.stringify(result));
+                alert(mes.message);
+                window.location.replace(mes.durl);
+            },
+            error: function (date) {
+                var mes = JSON.parse(JSON.stringify(date));
+                alert(mes.responseJSON.message);
+            }
+        });
+    }
+</script>
+<div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">用户名</th>
+            <th scope="col">生成文件名</th>
+            <th scope="col">生成时间</th>
+            <th scope="col">文件类型</th>
+            <th scope="col">生成IP</th>
+            <th scope="col">操作</th>
+        </tr>
+
+        </thead>
+        {{ range $f := .res}}
+            <tbody>
+            <tr>
+                <th scope="row">{{ $f.Id }}</th>
+                <td>{{ $f.User }}</td>
+                <td>{{ $f.Filename }}</td>
+                <td>{{ $f.Time }}</td>
+                <td>{{ $f.Filetype }}</td>
+                <td>{{ $f.Ip }}</td>
+                <td>
+                    <button type="button" style="width: 60px;height: 40px;" class="btn btn-dark"
+                            onclick="Delfile({{ $f.Id }})">删
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        {{ end }}
+    </table>
+</div>
+
+</body>
+</html>

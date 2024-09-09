@@ -1,0 +1,44 @@
+{{template "usertop" .}}
+<script>
+    function BypassUp() {
+        var formData = new FormData($("#formup")[0]);
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/api/file/binding",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                var mes = JSON.parse(JSON.stringify(result));
+                alert(mes.message);
+                window.location.replace(mes.durl);
+            },
+            error: function (date) {
+                var mes = JSON.parse(JSON.stringify(date));
+                alert(mes.responseJSON.message);
+            }
+        });
+    }
+</script>
+<h3>捆绑文件免杀</h3>
+<form id="formup" enctype="multipart/form-data" method="POST" class="btn btn-outline-secondary">
+    <input type="file" name="f1" value="payload">
+    <p></p>
+    <hr>
+    <p></p>
+    <input type="file" name="f2" value="exe">
+</form>
+
+<p>
+    <button type="button" onclick="BypassUp()" style="width: 90px;height: 40px;" class="btn btn-info">
+        ok
+    </button>
+</p>
+<p>服务器比较垃圾，点击生成后请耐心等待，切勿多次提交！</p>
+<p>如果生成成功的话，会返回下载地址。欢迎反馈和提供建议。为了长时间免杀，请不要上传杀毒网，如:vt,微步等云沙箱。</a>
+<p>使用说明:第一个文件上传paylaod(也是64位的raw格式),第二个文件上传你需要捆绑的文件(不能超过5mb)</a>
+<p></p>
+<a>图标啥的，请自己修改！</a>
+</p>
+{{template "userfooter" .}}
